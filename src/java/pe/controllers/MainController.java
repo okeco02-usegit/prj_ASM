@@ -28,6 +28,7 @@ public class MainController extends HttpServlet {
         try {
             String action = request.getParameter("action");
             //-----            your code here   --------------------------------
+
             if ("Login".equals(action)) {
                 url = "LoginController";
             } else if ("Logout".equals(action)) {
@@ -36,7 +37,10 @@ public class MainController extends HttpServlet {
                     session.invalidate();
                 }
                 url = "login.jsp";
+            } else if ("Search".equals(action)) {
+                url = "SearchController";
             }
+
             //-----            your code here   --------------------------------
         } catch (Exception e) {
             log("error at MainController: " + e.toString());
@@ -45,7 +49,7 @@ public class MainController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

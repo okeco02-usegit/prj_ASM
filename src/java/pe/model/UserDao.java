@@ -25,7 +25,7 @@ public class UserDao {
         try {
             conn = DbUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT fullName, roleID FROM tblUsers WHERE userID = ? AND password = ?";
+                String sql = "SELECT fullName FROM tblUsers WHERE userID = ? AND password = ?";
                 pstm = conn.prepareStatement(sql);
                 pstm.setString(1, userID);
                 pstm.setString(2, password);
@@ -33,8 +33,7 @@ public class UserDao {
                 
                 if (rs.next()) {
                     String fullName = rs.getString("fullName");
-                    String roleID = rs.getString("roleID");
-                    user = new UserDto(userID, fullName, roleID, "");
+                    user = new UserDto(userID, fullName, password, "");
                 }
             }
         } catch (Exception e) {
