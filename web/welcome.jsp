@@ -1,15 +1,12 @@
-
-
 <%@page import="pe.model.UserDto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome Page</title>
+        <title>Update Product</title>
     </head>
     <body>
-        <!--your code here-->
         <%
             UserDto user = (UserDto) session.getAttribute("LOGIN_USER");
             if (user == null) {
@@ -18,11 +15,26 @@
             }
         %>
         
-        <h1>Welcome <%= user.getFullName() %> !</h1>
-        
-        <ul>
-            <li><a href="search.jsp">Go to Search Page</a></li>
-            <li><a href="MainController?action=Logout">Logout</a></li>
-        </ul>
+        <h2>Update Product Details</h2>
+        <form action="MainController" method="POST">
+            Product ID: <input type="text" name="id" value="<%= request.getParameter("id") %>" readonly/><br/>
+            Product Name: <input type="text" name="name" value="<%= request.getParameter("name") %>" required/><br/>
+            Category: <input type="text" name="category" value="<%= request.getParameter("category") %>" required/><br/>
+            Price: <input type="number" step="0.01" name="price" value="<%= request.getParameter("price") %>" required/><br/>
+            Stock Quantity: <input type="number" name="stockQuantity" value="<%= request.getParameter("stockQuantity") %>" required/><br/>
+            
+            <input type="submit" name="action" value="UpdateProduct"/>
+        </form>
+
+        <%
+            String error = (String) request.getAttribute("ERROR_MSG");
+            if (error != null) {
+        %>
+        <h3 style="color: red;"><%= error%></h3>
+        <%
+            }
+        %>
+        <br/>
+        <a href="search.jsp">Back to Search</a>
     </body>
 </html>

@@ -29,7 +29,9 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
             //-----            your code here   --------------------------------
 
-            if ("Login".equals(action)) {
+            if (action == null || action.trim().isEmpty()) {
+                url = WELCOME;
+            } else if ("Login".equals(action)) {
                 url = "LoginController";
             } else if ("Logout".equals(action)) {
                 javax.servlet.http.HttpSession session = request.getSession(false);
@@ -39,6 +41,12 @@ public class MainController extends HttpServlet {
                 url = "login.jsp";
             } else if ("Search".equals(action)) {
                 url = "SearchController";
+            } else if ("Edit".equals(action)) {
+                // Action này chạy khi người dùng nhấn nút "Update" ở danh sách tìm kiếm
+                url = "EditController"; 
+            } else if ("UpdateProduct".equals(action)) {
+                // Action này chạy khi người dùng nhấn nút Save/Submit trên form Update
+                url = "UpdateController"; 
             }
 
             //-----            your code here   --------------------------------

@@ -38,7 +38,9 @@
                     <th>Product Name</th>
                     <th>Category</th>
                     <th>Price</th>
-                    <th>Stock Quantity</th> </tr>
+                    <th>Stock Quantity</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
                 <%
@@ -52,6 +54,11 @@
                     <td><%= product.getCategory()%></td>
                     <td><%= product.getPrice()%></td>
                     <td><%= product.getStockQuantity()%></td>
+                    <td><%= product.getPrice()%></td>
+                    <td><%= product.getStockQuantity()%></td>
+                    <td>
+                        <a href="MainController?action=Edit&id=<%= product.getId()%>">Update</a>
+                    </td>
                 </tr>
                 <%
                     }

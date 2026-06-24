@@ -8,10 +8,10 @@ package pe.model;
  *
  * @author Computing Fundamental - HCM Campus
  */
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import pe.utils.DbUtils;
@@ -58,5 +58,33 @@ public class ProductDao {
             }
         }
         return list;
+    }
+
+    public boolean updateProduct(ProductDto product) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        boolean check = false;
+        try {
+            conn = DbUtils.getConnection(); // Sử dụng kết nối từ tiện ích của bạn [cite: 2957]
+            if (conn != null) {
+                String sql = "UPDATE tblProducts SET name = ?, category = ?, price = ?, stockQuantity = ? WHERE id = ?";
+                pstm = conn.prepareStatement(sql);
+                pstm.setString(1, product.getName());
+                pstm.setString(2, product.getCategory());
+                pstm.setDouble(3, product.getPrice());
+                pstm.setInt(4, product.getStockQuantity());
+                pstm.setString(5, product.getId());
+
+                check = pstm.executeUpdate() > 0;
+            }
+        } finally {
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 }
